@@ -1,4 +1,4 @@
-# GOCat
+# GOCat - Gene Ontology Categorizer
 
 ## Goals of this project
 
