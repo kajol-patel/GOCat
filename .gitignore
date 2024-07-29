@@ -1,2 +1,6 @@
 **/*.docx
 .vscode/
+.DS_Store
+KNN1.png
+SVM1.png
+go-basic.obo
