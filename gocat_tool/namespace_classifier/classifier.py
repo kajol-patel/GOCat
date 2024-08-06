@@ -2,7 +2,9 @@ from enum import Enum
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 import re
-from models.knn import KNNClassifier 
+from models.knn import KNNClassifier
+from models.svm import SVMClassifier
+from models.random_forest import RFClassifier
 
 class ModelOption(Enum):
     knn = "knn"
@@ -86,15 +88,18 @@ class NamespaceClassifier():
 
         return input_features
     
-    
-    def get_model(X_df, y_df, model_type, extra_parameters):
+    def initialise_model(self):
 
-        if model_type == ModelOption.knn:
-            model = train_knn(X_df,y_df, extra_parameters)
-        elif model_type == ModelOption.svm:
-            model = train_svm(X_df,y_df, extra_parameters)
-        elif model_type == ModelOption.rf:
-            model = train_rf(X_df,y_df, extra_parameters)
+        if self.model_option == ModelOption.knn:
+            self.model = KNNClassifier(self.X_df,self.y_df, k = self.additional_parameters.k )
+        elif self.model_option == ModelOption.svm:
+            self.model = SVMClassifier(self.X_df,self.y_df, self.additional_parameters.C, self.additional_parameters.kernel, self.additional_parameters.gamma)
+        elif self.model_option == ModelOption.rf:
+            self.model = RFClassifier(self.X_df,self.y_df, self.additional_parameters.n_estimators, self.additional_parameters.max_depth
+                                      , self.additional_parameters.min_samples_split, self.additional_parameters.min_samples_leaf
+                                      , self.additional_parameters.bootstrap)
 
-        print('model initialised')
-        return model
+    def predict(self, input_features):
+        prediction = self.model.predict(input_features)
+        print('value predicted')
+        return prediction
