@@ -104,11 +104,9 @@ def get_model(X_df, y_df, model_type, extra_parameters):
     print('model initialised')
     return model
 
-def predict(model, input_features):
+def predict_result(model, input_features):
     prediction = model.predict(input_features)
     print('value predicted')
     return prediction
 
-model = get_model(None, None)
-prediction = predict(None,None)
 
