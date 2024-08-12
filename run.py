@@ -31,14 +31,14 @@ ADDITIONAL_PARAMETERS_MAP = {
 
 def main():
     print("Welcome to the GOCat - Gene Ontology Categorizer tool")
-    classifier_type = input("Please choose the classifier type: 'Namespace' classifier or 'Is a' classifier? (namespace/isa)")
+    classifier_type = input("Please choose the classifier type: 'Namespace' classifier or 'Is a' classifier? (namespace/isa): ")
     if classifier_type.lower().startswith("namespace"):
-        model_option = input("Please select a model. Options include: K-Nearest Neigbors (KNN), Support Vector Machine (SVM), Random Forest (RF). Enter your choice: (KNN/SVM/RF)" )
+        model_option = input("Please select a model. Options include: K-Nearest Neigbors (KNN), Support Vector Machine (SVM), Random Forest (RF). Enter your choice (KNN/SVM/RF): " )
         model_enum = NamespaceModelOption
     else:
-        model_option = input("Please select a model. Options include: Support Vector Machine (SVM), Random Forest (RF). Enter your choice: (SVM/RF)")
+        model_option = input("Please select a model. Options include: Support Vector Machine (SVM), Random Forest (RF). Enter your choice (SVM/RF): ")
         model_enum = IsAModelOption
-        no_of_labels_input = input("Please enter the number of top labels to consider OR press enter to proceed with default.")
+        no_of_labels_input = input("Please enter the number of top labels to consider OR press enter to proceed with default. ")
         no_of_labels = int(no_of_labels_input) if no_of_labels_input.strip() else 10
 
     dataset_choice = input("Would you like to use a custom dataset or the default dataset? (Type 'custom' OR press enter for default): ")

@@ -1,10 +1,19 @@
 # GOCat - Gene Ontology Categorizer
 
-## Goals of this project
+### Overview
 
-- Build a tool to categorize an abstract into GO namespaces
-- Compare various techniques
+**GOCat** is a tool designed to classify biological literature text into specific Gene Ontology (GO) categories. It supports two types of classifications:
 
-## Experiments
+* **Namespace Classification**: A multiclass classification that assigns the text to one of the GO namespaces.
+* **"Is A" Classification**: A multilabel classification that categorizes the text based on "is a" relation categories within the GO hierarchy.
 
-- Use KNN to classify GO term category
+This tool is particularly useful for researchers and bioinformaticians involved in gene ontology annotations.
+
+### Installation
+
+### Usage
+
+After installing the necessary dependencies, you can use the tool by running the run.py file. The script will prompt you for various inputs via the command line and then provide the classification results.
+
+**Example**
+![Example on how to run run.py in CLI](images/example.png)
