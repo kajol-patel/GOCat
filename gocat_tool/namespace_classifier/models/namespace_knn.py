@@ -24,7 +24,7 @@ class KNNClassifier():
         knn = KNeighborsClassifier(n_neighbors = self.k)
         knn.fit(self.X_df, self.y_df)
         self.model = knn
-        print('KNN fitted')
+        print('Status: KNN fitted')
         
     def predict(self, input_features):
         """
@@ -45,7 +45,7 @@ class KNNClassifier():
         :return int: The optimized value of 'k' that yielded the highest accuracy on the testing set.
         """
 
-        print('Optimizing KNN')
+        print('Status: Optimizing KNN')
         X_train, X_test, y_train, y_test = train_test_split(self.X_df, self.y_df, test_size=0.2)
         max_k = int(len(y_train)**0.5)  # Setting max k to the square root of the training set size
         accuracy = []

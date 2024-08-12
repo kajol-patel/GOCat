@@ -1,6 +1,4 @@
 from gocat_tool.is_a_classifier.is_a_classifier import IsAClassifier, ModelOption
-from gocat_tool.is_a_classifier.models.svm import SVMClassifier
-from gocat_tool.is_a_classifier.models.random_forest import RFClassifier
 
 DATASET_PATH = "/Users/kajolpatel/Desktop/Individual_Project/GOCat/dataset/go-basic.obo"
 #default values
@@ -26,16 +24,13 @@ if __name__ == "__main__":
     model_option = ModelOption.rf
     no_of_labels = 10
 
-    # Initialize classifier
-    classifier = IsAClassifier(
-        model_option=model_option,
+    classifier = IsAClassifier(model_option=model_option,
         dataset_path=DATASET_PATH,
         additional_parameters=ADDITIONAL_PARAMETERS_MAP[model_option],
         optimize=optimize,
         no_of_labels=no_of_labels,
     )
-    # dhgvjhs
 
     prediction = classifier.predict(input_text)
 
-    print("Predicted Namespace:", list(prediction[0]))
+    print("Predicted Is A:", list(prediction[0]))

@@ -1,7 +1,4 @@
 from gocat_tool.namespace_classifier.namespace_classifier import NamespaceClassifier, ModelOption
-from gocat_tool.namespace_classifier.models.namespace_knn import KNNClassifier
-from gocat_tool.namespace_classifier.models.namespace_svm import SVMClassifier
-from gocat_tool.namespace_classifier.models.namespace_random_forest import RFClassifier
 
 DATASET_PATH = "/Users/kajolpatel/Desktop/Individual_Project/GOCat/dataset/go-basic.obo"
 
@@ -21,7 +18,7 @@ if __name__ == "__main__":
 
     # Predict for some input text
     input_text = "A protein complex that is wholly or partially contained within the lumen or membrane of the extracellular vesicular exosome"
-    optimize = True
+    optimize = False
     model_option = ModelOption.svm
 
     # Initialize classifier

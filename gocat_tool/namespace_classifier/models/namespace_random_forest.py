@@ -47,7 +47,7 @@ class RFClassifier:
         )
         rf_clf.fit(self.X_df, self.y_df)
         self.model = rf_clf
-        print("RF trained")
+        print("Status: RF trained")
 
     def predict(self, input_features):
         """
@@ -69,7 +69,7 @@ class RFClassifier:
 
         :return dict: The best parameter combination found during optimization.
         """
-        print("Optimizing RF")
+        print("Status: Optimizing RF")
 
         #print("Downsampling started")
         X_df_dup = self.X_df.copy()

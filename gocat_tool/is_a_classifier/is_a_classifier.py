@@ -73,7 +73,7 @@ class IsAClassifier():
         self.dataset = pd.DataFrame(data)
         if 'def' in self.dataset.columns:
             self.dataset.rename(columns={'def': 'definition'}, inplace=True)
-        print('Data Parsed')
+        #print('Data Parsed')
 
     def extract_go_terms(self, s):
         go_terms = []
@@ -120,8 +120,7 @@ class IsAClassifier():
         """
         Transforms an input text into a feature vector using a pre-fitted CountVectorizer.
 
-        :param input_texts (str | list): Input text or list of texts to transform.
-
+        :param input_texts: Input text or list of texts to transform.
         :return array: Array of transformed feature vectors.
         """
         
@@ -150,7 +149,7 @@ class IsAClassifier():
         """
         Predicts the labels for the provided input text using the trained model.
 
-        :param input_text (str): The text input for which to predict labels.
+        :param input_text: The text input for which to predict labels.
         :return list: A list of predicted labels.
         """
         input_features = self.transform_input_text(input_text)
@@ -170,7 +169,6 @@ class IsAClassifier():
     def optimize_parameters(self):
         """
         Performs hyperparameter optimization for the selected model using techniques appropriate to the model's type (SVM or RF).
-
         Adjusts model parameters to improve performance based on training data.
         """
         if self.model_option == ModelOption.svm and self.optimize == True:
