@@ -5,7 +5,7 @@ import pandas as pd
 
 
 class SVMClassifier:
-    def __init__(self, X_df, y_df, C=10, kernel='rbf', gamma=0.1):
+    def __init__(self, X_df, y_df, C, kernel, gamma):
         self.X_df = X_df
         self.y_df = y_df
         self.C = C
@@ -15,7 +15,7 @@ class SVMClassifier:
 
     def train_svm(self):
         print('training params=', self.C, self.kernel, self.gamma)
-        svm_clf = SVC(C=self.C, kernel=self.kernel, gamma=self.gamma)
+        svm_clf = SVC(C=self.C, kernel=self.kernel, gamma=self.gamma, random_state=42)
         svm_clf.fit(self.X_df, self.y_df)
         self.model = svm_clf
         print("SVM trained")

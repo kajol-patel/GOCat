@@ -3,9 +3,9 @@ from gocat_tool.is_a_classifier.models.svm import SVMClassifier
 from gocat_tool.is_a_classifier.models.random_forest import RFClassifier
 
 DATASET_PATH = "/Users/kajolpatel/Desktop/Individual_Project/GOCat/dataset/go-basic.obo"
-
+#default values
 ADDITIONAL_PARAMETERS_MAP = {
-    ModelOption.svm: {"C": 5, "kernel": "rbf", "gamma": 0.1},
+    ModelOption.svm: {"C": 5, "kernel": "rbf", "gamma": 'scale'},
     ModelOption.rf: {
         "n_estimators": 220,
         "min_samples_split": 2,
@@ -18,13 +18,12 @@ ADDITIONAL_PARAMETERS_MAP = {
 if __name__ == "__main__":
 
     # Predict for some input text
-    input_text = [
-        "Catalysis of the reaction: 1-palmitoylglycerol-3-phosphate + NADP+ = palmitoylglycerone phosphate + NADPH + H+",
-        "Catalysis of the reaction: calcidiol + H+ + NADPH + O2 = calcitriol + H2O + NADP+",
-        "A heterodimeric complex involved in the release of a nascent polypeptide chain from a ribosome"
-    ]
+    input_text = "Catalysis of the reaction: 1-palmitoylglycerol-3-phosphate + NADP+ = palmitoylglycerone phosphate + NADPH + H+"
+       # "Catalysis of the reaction: calcidiol + H+ + NADPH + O2 = calcitriol + H2O + NADP+",
+       # "A heterodimeric complex involved in the release of a nascent polypeptide chain from a ribosome"
+    
     optimize = True
-    model_option = ModelOption.svm
+    model_option = ModelOption.rf
     no_of_labels = 10
 
     # Initialize classifier
@@ -35,7 +34,8 @@ if __name__ == "__main__":
         optimize=optimize,
         no_of_labels=no_of_labels,
     )
+    # dhgvjhs
 
     prediction = classifier.predict(input_text)
 
-    print("Predicted Namespace:", prediction)
+    print("Predicted Namespace:", list(prediction[0]))

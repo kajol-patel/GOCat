@@ -74,15 +74,15 @@ class NamespaceClassifier():
         df_filtered = self.dataset[self.dataset['is_obsolete'].isna()] # remove obsolete records
         df_filtered = df_filtered[['id', 'namespace', 'definition']] # removing unecessary columns
         df_filtered['definition'] = df_filtered['definition'].str.replace(r' \[.*?\]$', '', regex=True) # removing text in [] at the end of definitions
-        #vectorizer = CountVectorizer(stop_words='english', min_df=0.01) # converting definition to feature vectors
-        vectorizer = CountVectorizer(stop_words='english') # converting definition to feature vectors
+        vectorizer = CountVectorizer(stop_words='english', min_df=0.01) # converting definition to feature vectors
         X = vectorizer.fit_transform(df_filtered['definition'])
         dense_X = X.toarray()
 
         self.X_df = pd.DataFrame(dense_X, columns=vectorizer.get_feature_names_out()) # creating a dataframe for features
         self.y_df = df_filtered['namespace'] # creating df for labels 
         self.vectorizer = vectorizer 
-
+        print('X_df shape:',self.X_df.shape)
+        print('y_df shape:',self.y_df.shape)
         print('Data preprocessed and vectorized')
 
     def transform_input_text(self, input_text):
@@ -98,7 +98,7 @@ class NamespaceClassifier():
         return input_features
     
     def initialise_model(self):
-
+        print('Model Initialising')
         if self.model_option == ModelOption.knn:
             self.model = KNNClassifier(self.X_df,self.y_df, k = self.additional_parameters['k'] )
         elif self.model_option == ModelOption.svm:
@@ -112,7 +112,7 @@ class NamespaceClassifier():
         
     def predict(self, input_text):
         # Transform the input text using the previously fitted vectorizer
-        input_features = self.transform_input_text([input_text])
+        input_features = self.transform_input_text(input_text)
 
         # Convert the sparse input features to a dense array if necessary
         if isinstance(input_features, csr_matrix):

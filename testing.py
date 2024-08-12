@@ -22,7 +22,7 @@ if __name__ == "__main__":
     # Predict for some input text
     input_text = "A protein complex that is wholly or partially contained within the lumen or membrane of the extracellular vesicular exosome"
     optimize = True
-    model_option = ModelOption.knn
+    model_option = ModelOption.svm
 
     # Initialize classifier
     classifier = NamespaceClassifier(
