@@ -10,8 +10,8 @@ class RFClassifier:
         self,
         X_df,
         y_df,
-        n_estimators=60,
-        max_depth=None,
+        n_estimators=220,
+        max_depth=30,
         min_samples_split=2,
         min_samples_leaf=1,
         bootstrap=True,
@@ -42,6 +42,8 @@ class RFClassifier:
             min_samples_split=self.min_samples_split,
             min_samples_leaf=self.min_samples_leaf,
             bootstrap=self.bootstrap,
+            class_weight='balanced',random_state=42
+
         )
         rf_clf.fit(self.X_df, self.y_df)
         self.model = rf_clf

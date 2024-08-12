@@ -1,7 +1,7 @@
-from gocat_tool.namespace_classifier.classifier import NamespaceClassifier, ModelOption
-from gocat_tool.namespace_classifier.models.knn import KNNClassifier
-from gocat_tool.namespace_classifier.models.svm import SVMClassifier
-from gocat_tool.namespace_classifier.models.random_forest import RFClassifier
+from gocat_tool.namespace_classifier.namespace_classifier import NamespaceClassifier, ModelOption
+from gocat_tool.namespace_classifier.models.namespace_knn import KNNClassifier
+from gocat_tool.namespace_classifier.models.namespace_svm import SVMClassifier
+from gocat_tool.namespace_classifier.models.namespace_random_forest import RFClassifier
 
 DATASET_PATH = "/Users/kajolpatel/Desktop/Individual_Project/GOCat/dataset/go-basic.obo"
 
