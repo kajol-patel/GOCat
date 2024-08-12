@@ -1,5 +1,5 @@
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import GridSearchCV
 from sklearn.utils import resample
 import pandas as pd
 
@@ -8,12 +8,23 @@ class RFClassifier:
         self,
         X_df,
         y_df,
-        n_estimators=60,
-        max_depth=None,
-        min_samples_split=2,
-        min_samples_leaf=1,
-        bootstrap=True,
+        n_estimators,
+        max_depth,
+        min_samples_split,
+        min_samples_leaf,
+        bootstrap,
     ):
+        """
+        Initializes the RandomForestClassifier with specified parameters and dataset.
+
+        :param X_df (DataFrame): The feature dataset used for training the RandomForest model.
+        :param y_df (Series/DataFrame): The target labels corresponding to the features in X_df.
+        :param n_estimators (int): The number of trees in the forest.
+        :param max_depth (int): The maximum depth of the trees.
+        :param min_samples_split (int): The minimum number of samples required to split an internal node.
+        :param min_samples_leaf (int): The minimum number of samples required to be at a leaf node.
+        :param bootstrap (bool): Whether bootstrap samples are used when building trees.
+        """
         self.X_df = X_df
         self.y_df = y_df
         self.n_estimators = n_estimators
@@ -24,9 +35,9 @@ class RFClassifier:
         self.train_rf()
 
     def train_rf(self):
-        print('training params=', self.n_estimators, self.max_depth, self.min_samples_split, self.min_samples_leaf,
-              self.bootstrap)
-
+        """
+        Trains the RandomForest classifier using the initialized parameters. Outputs the training status to the console.
+        """
         rf_clf = RandomForestClassifier(
             n_estimators=self.n_estimators,
             max_depth=self.max_depth,
@@ -39,23 +50,38 @@ class RFClassifier:
         print("RF trained")
 
     def predict(self, input_features):
+        """
+        Predicts the class labels for the provided feature set using the trained RandomForest model.
+
+        :param input_features (array-like): A set of input features to classify.
+        :return array: Predicted class labels for each input feature set.
+        """
+
         return self.model.predict(input_features)
 
     def optimize(self):
+        """
+        Optimizes the parameters of the RandomForest model using downsampling and GridSearchCV.
+        
+        Performs downsampling to reduce the dataset size proportionally across unique namespaces for more effective
+        and balanced parameter tuning. Uses a grid search to explore various combinations of parameters to find the
+        best settings based on accuracy.
 
+        :return dict: The best parameter combination found during optimization.
+        """
         print("Optimizing RF")
 
-        print("Downsampling started")
+        #print("Downsampling started")
         X_df_dup = self.X_df.copy()
         X_df_dup['namespace'] = self.dataset['namespace']
         unique_namespaces = X_df_dup["namespace"].unique()
         downsampled_dfs = []
         downsampled_labels = []
         n_samples_per_namespace = int(0.05 * len(X_df_dup) / len(unique_namespaces))
-        # Downsampling process for each namespace
+        
         for namespace in unique_namespaces:
             namespace_df = X_df_dup[X_df_dup["namespace"] == namespace]
-            # Ensure not to sample more than available
+            
             if len(namespace_df) < n_samples_per_namespace:
                 print(
                     f"Warning: Not enough samples in namespace {namespace}. Using all available samples."
@@ -73,11 +99,11 @@ class RFClassifier:
 
             downsampled_dfs.append(downsampled_df)
             downsampled_labels.append(downsampled_y)
-    # Resetting index to align X and y
+
         X_downsampled = pd.concat(downsampled_dfs).reset_index(drop=True)
         y_downsampled = pd.concat(downsampled_labels).reset_index(drop=True)
 
-        print("Downsampling done for optimization")
+        #print("Downsampling done for optimization")
 
         param_grid = {
             "n_estimators": [30, 60, 100, 200, 300],
@@ -86,7 +112,7 @@ class RFClassifier:
             "min_samples_leaf": [1, 2, 4],
             "bootstrap": [True, False],
         }
-        print("Grid search started for RF")
+        #print("Grid search started for RF")
         grid_search = GridSearchCV(
             RandomForestClassifier(random_state=42),
             param_grid,
@@ -95,5 +121,5 @@ class RFClassifier:
         )
         grid_search.fit(X_downsampled, y_downsampled)
 
-        print('optimized params=', grid_search.best_params_)
+        #print('optimized params=', grid_search.best_params_)
         return grid_search.best_params_

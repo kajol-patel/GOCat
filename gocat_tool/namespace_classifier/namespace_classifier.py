@@ -15,8 +15,12 @@ class ModelOption(Enum):
 class NamespaceClassifier():
     def __init__(self, model_option, dataset_path, additional_parameters, optimize):
         """
-        To do:
-
+        Initialize the NamespaceClassifier with the specified model type and parameters.
+        
+        :param model_option (ModelOption): The type of model to use (knn, svm, or rf).
+        :param dataset_path (str): The file path to the dataset used for model training.
+        :param additional_parameters (dict): Additional parameters specific to the chosen model.
+        :param optimize (bool): If True, perform hyperparameter optimization for the model.
         """
         self.model_option = model_option
         self.dataset_path = dataset_path
@@ -30,7 +34,9 @@ class NamespaceClassifier():
         self.initialise_model()
         
     def parse_obo_file(self):
-    
+        """        
+        Parses an OBO (Open Biomedical Ontology) file to extract terms and create a DataFrame.
+        """
         data = []
         current_term = {}
         in_term_block = False
@@ -38,17 +44,17 @@ class NamespaceClassifier():
         with open(self.dataset_path, 'r') as file:
             for line in file:
                 line = line.strip()
-                if line == '[Term]':  #starting a new term block
+                if line == '[Term]':
                     if current_term:
                         data.append(current_term)
                     current_term = {}
                     in_term_block = True
                 elif line == '':
-                    in_term_block = False  #end of a term block
+                    in_term_block = False
                 elif in_term_block:
                     if ': ' in line:
                         key, value = line.split(': ', 1)
-                        if key in current_term:  #handling multiple lines of the same key
+                        if key in current_term:
                             if isinstance(current_term[key], list):
                                 current_term[key].append(value)
                             else:
@@ -56,40 +62,38 @@ class NamespaceClassifier():
                         else:
                             current_term[key] = value
 
-        
-        if current_term: #add the last term if file does not end with a newline
+        if current_term:
             data.append(current_term)
 
         self.dataset = pd.DataFrame(data)
         if 'def' in self.dataset.columns:
             self.dataset.rename(columns={'def': 'definition'}, inplace=True)
-
         print('Data Parsed')
     
     def preprocess_and_vectorize(self):
         '''
-        Processes the input dataframe by filtering, cleaning text data, vectorizing definitions, 
-        and creating a new dataframe with features as columns and extracting the target variable.
-    '''
-        df_filtered = self.dataset[self.dataset['is_obsolete'].isna()] # remove obsolete records
-        df_filtered = df_filtered[['id', 'namespace', 'definition']] # removing unecessary columns
-        df_filtered['definition'] = df_filtered['definition'].str.replace(r' \[.*?\]$', '', regex=True) # removing text in [] at the end of definitions
-        vectorizer = CountVectorizer(stop_words='english', min_df=0.01) # converting definition to feature vectors
+        Processes the input dataframe by filtering, cleaning text data, vectorizing definitions, and creating a new dataframe with features as columns and extracting the target variable.
+        '''
+        df_filtered = self.dataset[self.dataset['is_obsolete'].isna()] #remove obsolete records
+        df_filtered = df_filtered[['id', 'namespace', 'definition']] #removing unecessary columns
+        df_filtered['definition'] = df_filtered['definition'].str.replace(r' \[.*?\]$', '', regex=True) #removing text in [] at the end of definitions
+        vectorizer = CountVectorizer(stop_words='english', min_df=0.01) #converting definition to feature vectors
         X = vectorizer.fit_transform(df_filtered['definition'])
         dense_X = X.toarray()
 
         self.X_df = pd.DataFrame(dense_X, columns=vectorizer.get_feature_names_out()) # creating a dataframe for features
-        self.y_df = df_filtered['namespace'] # creating df for labels 
+        self.y_df = df_filtered['namespace'] #creating df for labels 
         self.vectorizer = vectorizer 
-        print('X_df shape:',self.X_df.shape)
-        print('y_df shape:',self.y_df.shape)
-        print('Data preprocessed and vectorized')
+        print('Data preprocessed')
 
     def transform_input_text(self, input_text):
         """
-        Transforms an input text into a feature vector using a pre-fitted CountVectorizer.
+        Converts input text to a feature vector using the pre-fitted CountVectorizer.
+
+        :param input_text (str): The text input to transform.
+        :return: The transformed feature vector as an array.        
         """
-        # remocing text in [] (if present)
+        # removing text in [] (if present)
         cleaned_text = re.sub(r' \[.*?\]$', '', input_text)
         feature_vector = self.vectorizer.transform([cleaned_text])
         input_features = feature_vector.toarray()
@@ -98,7 +102,9 @@ class NamespaceClassifier():
         return input_features
     
     def initialise_model(self):
-        print('Model Initialising')
+        """
+        Initializes the model based on the specified model_option and sets up necessary configurations.
+        """
         if self.model_option == ModelOption.knn:
             self.model = KNNClassifier(self.X_df,self.y_df, k = self.additional_parameters['k'] )
         elif self.model_option == ModelOption.svm:
@@ -107,27 +113,30 @@ class NamespaceClassifier():
             self.model = RFClassifier(self.X_df,self.y_df, self.additional_parameters['n_estimators'], self.additional_parameters['max_depth']
                                       , self.additional_parameters['min_samples_split'], self.additional_parameters['min_samples_leaf']
                                       , self.additional_parameters['bootstrap'])
-        print('Model Initialised')
-
         
     def predict(self, input_text):
-        # Transform the input text using the previously fitted vectorizer
-        input_features = self.transform_input_text(input_text)
+        """
+        Predicts the namespace based on the input text after transforming and model inference.
 
-        # Convert the sparse input features to a dense array if necessary
+        :param input_text: Text input to classify.
+        :return The predicted namespace.
+        """        
+        
+        input_features = self.transform_input_text(input_text)
         if isinstance(input_features, csr_matrix):
             input_features_dense = input_features.toarray()
         else:
             input_features_dense = input_features
-
-        # Create a DataFrame with the correct feature names
         input_df = pd.DataFrame(input_features_dense, columns=self.vectorizer.get_feature_names_out())
-
-        # Make the prediction using the DataFrame
         prediction = self.model.predict(input_df)
+
         return prediction
 
     def optimize_parameters(self):
+        """
+        Optimizes model parameters based on the model type and the optimization flag set during initialization.
+        """
+
         if self.model_option == ModelOption.knn and self.optimize == True:
             k = KNNClassifier.optimize(self)
             self.additional_parameters['k'] == k
@@ -137,5 +146,3 @@ class NamespaceClassifier():
         elif self.model_option == ModelOption.rf and self.optimize == True:
             optimized_parameters = RFClassifier.optimize(self)
             self.additional_parameters.update(optimized_parameters)
-        
-        print('Optimized params=', self.additional_parameters)
