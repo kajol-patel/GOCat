@@ -7,9 +7,9 @@ class KNNClassifier():
         """
         Initializes the KNNClassifier with a DataFrame of features, labels, and a number of neighbors.
 
-        :param X_df (DataFrame): Feature data for training the KNN classifier.
-        :param y_df (Series/DataFrame): Label data corresponding to the features in X_df.
-        :param k (int): Number of neighbors to use.
+        :param X_df: Feature data for training the KNN classifier.
+        :param y_df: Label data corresponding to the features in X_df.
+        :param k: Number of neighbors to use.
         """
         self.X_df = X_df
         self.y_df = y_df
@@ -30,7 +30,7 @@ class KNNClassifier():
         """
         Predicts the class labels for the provided feature set using the trained KNN model.
 
-        :param input_features (array-like): A set of input features to classify.
+        :param input_features: A set of input features to classify.
         :return array: Predicted class labels for each input feature set.
         """
 

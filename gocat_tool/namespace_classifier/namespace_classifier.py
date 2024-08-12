@@ -17,10 +17,10 @@ class NamespaceClassifier():
         """
         Initialize the NamespaceClassifier with the specified model type and parameters.
         
-        :param model_option (ModelOption): The type of model to use (knn, svm, or rf).
-        :param dataset_path (str): The file path to the dataset used for model training.
-        :param additional_parameters (dict): Additional parameters specific to the chosen model.
-        :param optimize (bool): If True, perform hyperparameter optimization for the model.
+        :param model_option: The type of model to use (knn, svm, or rf).
+        :param dataset_path: The file path to the dataset used for model training.
+        :param additional_parameters: Additional parameters specific to the chosen model.
+        :param optimize: If True, perform hyperparameter optimization for the model.
         """
         self.model_option = model_option
         self.dataset_path = dataset_path
@@ -90,7 +90,7 @@ class NamespaceClassifier():
         """
         Converts input text to a feature vector using the pre-fitted CountVectorizer.
 
-        :param input_text (str): The text input to transform.
+        :param input_text: The text input to transform.
         :return: The transformed feature vector as an array.        
         """
         # removing text in [] (if present)

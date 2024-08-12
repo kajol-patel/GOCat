@@ -9,11 +9,11 @@ class SVMClassifier:
         """
         Initializes the SVMClassifier with specified dataset and SVM parameters.
 
-        :param X_df (DataFrame): The feature dataset used for training the SVM model.
-        :param y_df (Series/DataFrame): The target labels corresponding to the features in X_df.
-        :param C (float): Regularization parameter. 
-        :param kernel (str): Specifies the kernel type to be used in the algorithm.
-        :param gamma (str or float): Kernel coefficient for 'rbf', 'poly', and 'sigmoid'.
+        :param X_df: The feature dataset used for training the SVM model.
+        :param y_df: The target labels corresponding to the features in X_df.
+        :param C: Regularization parameter. 
+        :param kernel: Specifies the kernel type to be used in the algorithm.
+        :param gamma: Kernel coefficient for 'rbf', 'poly', and 'sigmoid'.
         """
         self.X_df = X_df
         self.y_df = y_df
@@ -37,7 +37,7 @@ class SVMClassifier:
         """
         Predicts the class labels for the provided feature set using the trained SVM model.
 
-        :param input_features (array-like): A set of input features to classify.
+        :param input_features: A set of input features to classify.
         :return array: Predicted class labels for each input feature set.
         """
         return self.model.predict(input_features)

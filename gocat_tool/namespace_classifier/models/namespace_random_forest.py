@@ -17,13 +17,13 @@ class RFClassifier:
         """
         Initializes the RandomForestClassifier with specified parameters and dataset.
 
-        :param X_df (DataFrame): The feature dataset used for training the RandomForest model.
-        :param y_df (Series/DataFrame): The target labels corresponding to the features in X_df.
-        :param n_estimators (int): The number of trees in the forest.
-        :param max_depth (int): The maximum depth of the trees.
-        :param min_samples_split (int): The minimum number of samples required to split an internal node.
-        :param min_samples_leaf (int): The minimum number of samples required to be at a leaf node.
-        :param bootstrap (bool): Whether bootstrap samples are used when building trees.
+        :param X_df: The feature dataset used for training the RandomForest model.
+        :param y_df: The target labels corresponding to the features in X_df.
+        :param n_estimators: The number of trees in the forest.
+        :param max_depth: The maximum depth of the trees.
+        :param min_samples_split: The minimum number of samples required to split an internal node.
+        :param min_samples_leaf: The minimum number of samples required to be at a leaf node.
+        :param bootstrap: Whether bootstrap samples are used when building trees.
         """
         self.X_df = X_df
         self.y_df = y_df
@@ -53,7 +53,7 @@ class RFClassifier:
         """
         Predicts the class labels for the provided feature set using the trained RandomForest model.
 
-        :param input_features (array-like): A set of input features to classify.
+        :param input_features: A set of input features to classify.
         :return array: Predicted class labels for each input feature set.
         """
 
