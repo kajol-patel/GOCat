@@ -2,7 +2,7 @@ from gocat_tool.is_a_classifier.is_a_classifier import IsAClassifier, ModelOptio
 from gocat_tool.namespace_classifier.namespace_classifier import NamespaceClassifier, ModelOption as NamespaceModelOption
 
 #Default dataset path
-DEFAULT_DATASET_PATH = "../GOCat/dataset/go-basic.obo"
+DEFAULT_DATASET_PATH = "../dataset/go-basic.obo"
 
 #Default parameter mapping
 ADDITIONAL_PARAMETERS_MAP = {

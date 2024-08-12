@@ -11,9 +11,12 @@ This tool is particularly useful for researchers and bioinformaticians involved 
 
 ### Installation
 
+The _requirements.txt_ file indicates the libraries and their versions required to run this code.
+
 ### Usage
 
 After installing the necessary dependencies, you can use the tool by running the run.py file. The script will prompt you for various inputs via the command line and then provide the classification results.
 
 **Example**
+
 ![Example on how to run run.py in CLI](images/example.png)

@@ -1,6 +1,6 @@
 from gocat_tool.namespace_classifier.namespace_classifier import NamespaceClassifier, ModelOption
 
-DATASET_PATH = "/Users/kajolpatel/Desktop/Individual_Project/GOCat/dataset/go-basic.obo"
+DATASET_PATH = "../dataset/go-basic.obo"
 
 ADDITIONAL_PARAMETERS_MAP = {
     ModelOption.knn: {"k": 5},

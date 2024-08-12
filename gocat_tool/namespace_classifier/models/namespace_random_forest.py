@@ -47,7 +47,7 @@ class RFClassifier:
         )
         rf_clf.fit(self.X_df, self.y_df)
         self.model = rf_clf
-        print("Status: RF trained")
+        #print("Status: RF trained")
 
     def predict(self, input_features):
         """

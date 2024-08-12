@@ -31,7 +31,7 @@ class SVMClassifier:
         svm_clf = SVC(C=self.C, kernel=self.kernel, gamma=self.gamma, random_state=42)
         svm_clf.fit(self.X_df, self.y_df)
         self.model = svm_clf
-        print("Status: SVM trained")
+        #print("Status: SVM trained")
 
     def predict(self, input_features):
         """
@@ -51,7 +51,7 @@ class SVMClassifier:
 
         :return dict: The best parameter combination found during the optimization.
         """
-        print("Status: Optimizing SVM")
+        #print("Status: Optimizing SVM")
 
         #print("Downsampling started")
         X_df_dup = self.X_df.copy()
@@ -98,6 +98,6 @@ class SVMClassifier:
         )
         grid_search.fit(X_downsampled, y_downsampled)
 
-        print("Optimized SVM")
+        #print("Optimized SVM")
 
         return grid_search.best_params_

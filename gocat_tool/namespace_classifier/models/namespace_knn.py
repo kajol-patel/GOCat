@@ -24,7 +24,7 @@ class KNNClassifier():
         knn = KNeighborsClassifier(n_neighbors = self.k)
         knn.fit(self.X_df, self.y_df)
         self.model = knn
-        print('Status: KNN fitted')
+        #print('Status: KNN fitted')
         
     def predict(self, input_features):
         """

@@ -68,7 +68,7 @@ class NamespaceClassifier():
         self.dataset = pd.DataFrame(data)
         if 'def' in self.dataset.columns:
             self.dataset.rename(columns={'def': 'definition'}, inplace=True)
-        print('Status: Data Parsed')
+       #print('Status: Data Parsed')
     
     def preprocess_and_vectorize(self):
         '''
@@ -84,7 +84,7 @@ class NamespaceClassifier():
         self.X_df = pd.DataFrame(dense_X, columns=vectorizer.get_feature_names_out()) # creating a dataframe for features
         self.y_df = df_filtered['namespace'] #creating df for labels 
         self.vectorizer = vectorizer 
-        print('Status: Data preprocessed')
+        #print('Status: Data preprocessed')
 
     def transform_input_text(self, input_text):
         """

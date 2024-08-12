@@ -19,11 +19,11 @@ class IsAClassifier():
         """
         Initializes the IsAClassifier with the specified model type, dataset path, additional parameters, and optimization flag.
 
-        :param model_option (ModelOption): The type of model to use (svm or rf).
-        :param dataset_path (str): The path to the dataset file.
-        :param additional_parameters (dict): A dictionary of additional parameters specific to the chosen model.
-        :param optimize (bool): A flag to determine whether to perform hyperparameter optimization.
-        :param no_of_labels (int): The number of top labels to consider in multi-label classification.
+        :param model_option: The type of model to use (svm or rf).
+        :param dataset_path: The path to the dataset file.
+        :param additional_parameters: A dictionary of additional parameters specific to the chosen model.
+        :param optimize: A flag to determine whether to perform hyperparameter optimization.
+        :param no_of_labels: The number of top labels to consider in multi-label classification.
         """
         self.model_option = model_option
         self.dataset_path = dataset_path
