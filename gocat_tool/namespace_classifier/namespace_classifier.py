@@ -13,7 +13,7 @@ class ModelOption(Enum):
     rf = "rf"
 
 class NamespaceClassifier():
-    def __init__(self, model_option, dataset_path, additional_parameters, optimize):
+    def __init__(self, model_option, dataset_path, additional_parameters, optimize, rare_words_exclusion_percent):
         """
         Initialize the NamespaceClassifier with the specified model type and parameters.
         
@@ -26,6 +26,7 @@ class NamespaceClassifier():
         self.dataset_path = dataset_path
         self.additional_parameters = additional_parameters
         self.optimize = optimize
+        self.rare_words_exclusion_percent = rare_words_exclusion_percent
         self.model = None
         self.parse_obo_file()
         self.preprocess_and_vectorize()
@@ -77,7 +78,8 @@ class NamespaceClassifier():
         df_filtered = self.dataset[self.dataset['is_obsolete'].isna()] #remove obsolete records
         df_filtered = df_filtered[['id', 'namespace', 'definition']] #removing unecessary columns
         df_filtered['definition'] = df_filtered['definition'].str.replace(r' \[.*?\]$', '', regex=True) #removing text in [] at the end of definitions
-        vectorizer = CountVectorizer(stop_words='english', min_df=0.01) #converting definition to feature vectors
+        
+        vectorizer = CountVectorizer(stop_words='english', min_df=self.rare_words_exclusion_percent/100.0) #converting definition to feature vectors
         X = vectorizer.fit_transform(df_filtered['definition'])
         dense_X = X.toarray()
 

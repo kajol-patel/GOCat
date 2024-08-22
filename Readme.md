@@ -16,35 +16,21 @@ This tool is particularly useful for researchers and bioinformaticians involved 
 ├── dataset
 │   └── go-basic.obo
 ├── experiments
-│   ├── KNN1.png
-│   ├── SVM1.png
 │   ├── gocat_multiclass.ipynb
 │   ├── gocat_multilabel_1.ipynb
-│   ├── gocat_multilabel_2.ipynb
-│   └── piechart.png
+│   └── gocat_multilabel_2.ipynb
 ├── gocat_tool
-│   ├── __pycache__
-│   │   └── namespace_classifier.cpython-311.pyc
 │   ├── is_a_classifier
 │   │   ├── __init__.py
-│   │   ├── __pycache__
-│   │   │   ├── __init__.cpython-311.pyc
-│   │   │   └── is_a_classifier.cpython-311.pyc
 │   │   ├── is_a_classifier.py
 │   │   └── models
 │   │       ├── __init__.py
-│   │       ├── __pycache__
 │   │       ├── random_forest.py
 │   │       └── svm.py
 │   └── namespace_classifier
 │       ├── __init__.py
-│       ├── __pycache__
-│       │   ├── __init__.cpython-311.pyc
-│       │   ├── classifier.cpython-311.pyc
-│       │   └── namespace_classifier.cpython-311.pyc
 │       ├── models
 │       │   ├── __init__.py
-│       │   ├── __pycache__
 │       │   ├── namespace_knn.py
 │       │   ├── namespace_random_forest.py
 │       │   └── namespace_svm.py
@@ -52,7 +38,8 @@ This tool is particularly useful for researchers and bioinformaticians involved 
 ├── images
 │   ├── KNN1.png
 │   ├── SVM1.png
-│   └── example.png
+│   ├── example.png
+│   └── piechart.png
 ├── requirements.txt
 ├── run.py
 └── testing

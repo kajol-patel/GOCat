@@ -1,29 +1,28 @@
 from gocat_tool.is_a_classifier.is_a_classifier import IsAClassifier, ModelOption as IsAModelOption
 from gocat_tool.namespace_classifier.namespace_classifier import NamespaceClassifier, ModelOption as NamespaceModelOption
 
-#Default dataset path
+#Default settings
 DEFAULT_DATASET_PATH = "../dataset/go-basic.obo"
-
-#Default parameter mapping
+rare_words_exclusion_percent = 1.0
 ADDITIONAL_PARAMETERS_MAP = {
     "isa": {
         IsAModelOption.svm: {"C": 5, "kernel": "rbf", "gamma": 'scale'},
         IsAModelOption.rf: {
-            "n_estimators": 220,
+            "n_estimators": 170,
             "min_samples_split": 2,
             "min_samples_leaf": 1,
             "bootstrap": True,
-            "max_depth": 30,
+            "max_depth": 42
         },
     },
     "namespace": {
         NamespaceModelOption.knn: {"k": 5},
         NamespaceModelOption.svm: {"C": 10, "kernel": "rbf", "gamma": 0.1},
         NamespaceModelOption.rf: {
-            "n_estimators": 200,
+            "n_estimators": 30,
             "min_samples_split": 5,
             "min_samples_leaf": 1,
-            "bootstrap": False,
+            "bootstrap": True,
             "max_depth": None,
         },
     }
@@ -47,6 +46,10 @@ def main():
     if not dataset_choice.strip():
         dataset_path = DEFAULT_DATASET_PATH
 
+    words_exclusion = input("If you would like to change the rare words exclusion %, enter %, OR Press Enter for default (1%) ):")
+    if words_exclusion.strip():
+        rare_words_exclusion_percent = float(words_exclusion)
+
     optimize = input("Would you prefer to optimize the hyperparameters or proceed with default settings? (Optimizing may extend processing time. Type 'optimize' or press Enter for default settings): ")
     optimize = optimize.lower() == 'optimize'
 
@@ -61,6 +64,7 @@ def main():
             dataset_path=dataset_path,
             additional_parameters=additional_params,
             optimize=optimize,
+            rare_words_exclusion_percent = rare_words_exclusion_percent
         )
     else:
         classifier = IsAClassifier(
@@ -69,6 +73,7 @@ def main():
             additional_parameters=additional_params,
             optimize=optimize,
             no_of_labels=no_of_labels,
+            rare_words_exclusion_percent = rare_words_exclusion_percent
         )
 
     prediction = classifier.predict(input_text)

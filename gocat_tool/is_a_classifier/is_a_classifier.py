@@ -15,7 +15,7 @@ class ModelOption(Enum):
 
 class IsAClassifier():
 
-    def __init__(self, model_option, dataset_path, additional_parameters, optimize, no_of_labels):
+    def __init__(self, model_option, dataset_path, additional_parameters, optimize, no_of_labels,rare_words_exclusion_percent):
         """
         Initializes the IsAClassifier with the specified model type, dataset path, additional parameters, and optimization flag.
 
@@ -30,6 +30,7 @@ class IsAClassifier():
         self.additional_parameters = additional_parameters
         self.optimize = optimize
         self.no_of_labels = no_of_labels
+        self.rare_words_exclusion_percent = rare_words_exclusion_percent
         self.model = None
         self.parse_obo_file()
         self.preprocess_and_vectorize()
@@ -107,8 +108,8 @@ class IsAClassifier():
         mlb = MultiLabelBinarizer()
         y = mlb.fit_transform(filtered_df['is_a'])
         self.y_df = pd.DataFrame(y, columns=mlb.classes_)
-        
-        vectorizer = CountVectorizer(stop_words='english', min_df=0.01)
+
+        vectorizer = CountVectorizer(stop_words='english',min_df=self.rare_words_exclusion_percent/100.0)
         X_tfidf = vectorizer.fit_transform(filtered_df['definition'])
 
         self.X_df = pd.DataFrame(X_tfidf.toarray(), columns=vectorizer.get_feature_names_out())
