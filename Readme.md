@@ -1,8 +1,8 @@
-# GOCat - Gene Ontology Categorizer
+# MultiGOClassifier - Gene Ontology Classification tool
 
 ### Overview
 
-**GOCat** is a tool designed to classify biological literature text into specific Gene Ontology (GO) categories. It supports two types of classifications:
+**MultiGOClassifier** is a tool designed to classify biological literature text into specific Gene Ontology (GO) categories. It supports two types of classifications:
 
 * **Namespace Classification**: A multiclass classification that assigns the text to one of the GO namespaces.
 * **"Is A" Classification**: A multilabel classification that categorizes the text based on "is a" relation categories within the GO hierarchy.
@@ -16,10 +16,10 @@ This tool is particularly useful for researchers and bioinformaticians involved 
 ├── dataset
 │   └── go-basic.obo
 ├── experiments
-│   ├── gocat_multiclass.ipynb
-│   ├── gocat_multilabel_1.ipynb
-│   └── gocat_multilabel_2.ipynb
-├── gocat_tool
+│   ├── multigoclassfier_multiclass.ipynb
+│   ├── multigoclassfier_multilabel_1.ipynb
+│   └── multigoclassfier_multilabel_2.ipynb
+├── multigoclassfier_tool
 │   ├── is_a_classifier
 │   │   ├── __init__.py
 │   │   ├── is_a_classifier.py
@@ -41,10 +41,8 @@ This tool is particularly useful for researchers and bioinformaticians involved 
 │   ├── example.png
 │   └── piechart.png
 ├── requirements.txt
-├── run.py
-└── testing
-    ├── testing.py
-    └── testing_isa.py
+└── run.py
+
 ```
 
 ### Installation

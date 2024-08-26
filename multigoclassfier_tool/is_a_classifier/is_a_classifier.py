@@ -15,7 +15,7 @@ class ModelOption(Enum):
 
 class IsAClassifier():
 
-    def __init__(self, model_option, dataset_path, additional_parameters, optimize, no_of_labels,rare_words_exclusion_percent):
+    def __init__(self, model_option, dataset_path, additional_parameters, optimize, no_of_labels, rare_words_exclusion_percent):
         """
         Initializes the IsAClassifier with the specified model type, dataset path, additional parameters, and optimization flag.
 
