@@ -17,8 +17,7 @@ This tool is particularly useful for researchers and bioinformaticians involved 
 │   └── go-basic.obo
 ├── experiments
 │   ├── multigoclassfier_multiclass.ipynb
-│   ├── multigoclassfier_multilabel_1.ipynb
-│   └── multigoclassfier_multilabel_2.ipynb
+│   └── multigoclassfier_multilabel.ipynb
 ├── multigoclassfier_tool
 │   ├── is_a_classifier
 │   │   ├── __init__.py
