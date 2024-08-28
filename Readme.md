@@ -17,7 +17,8 @@ This tool is particularly useful for researchers and bioinformaticians involved 
 │   └── go-basic.obo
 ├── experiments
 │   ├── multigoclassfier_multiclass.ipynb
-│   └── multigoclassfier_multilabel.ipynb
+│   ├── multigoclassfier_multilabel_10.ipynb
+│   └── multigoclassfier_multilabel_20.ipynb
 ├── multigoclassfier_tool
 │   ├── is_a_classifier
 │   │   ├── __init__.py
@@ -47,13 +48,20 @@ This tool is particularly useful for researchers and bioinformaticians involved 
 ### Installation
 
 1. Create a virtual environment with the command
-`python -m venv .venv`
+
+    `python -m venv .venv`
+
 2. Activate the virtual environment
-`source .venv/bin/activate`
+
+    `source .venv/bin/activate`
+
 3. Install Dependencies using 
-`pip install -r requirements.txt`
-4. Download dataset using the below command 
-`curl https://current.geneontology.org/ontology/go-basic.obo > dataset/go-basic.obo `
+
+    `pip install -r requirements.txt`
+
+4. Download dataset using the command 
+
+    `curl https://current.geneontology.org/ontology/go-basic.obo > dataset/go-basic.obo`
 
 ### Usage
 
