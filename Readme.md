@@ -52,6 +52,8 @@ This tool is particularly useful for researchers and bioinformaticians involved 
 `source .venv/bin/activate`
 3. Install Dependencies using 
 `pip install -r requirements.txt`
+4. Download dataset using the below command 
+`curl https://current.geneontology.org/ontology/go-basic.obo > dataset/go-basic.obo `
 
 ### Usage
 

@@ -3,7 +3,7 @@
 .DS_Store
 KNN1.png
 SVM1.png
-dataset/go-basic.obo
+dataset/*.obo
 **/__pycache__
 test.py
 .venv
