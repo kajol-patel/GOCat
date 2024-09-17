@@ -8,3 +8,4 @@ dataset/*.obo
 test.py
 .venv
 Project_Report_2401041.pdf
+.local/
